@@ -1,0 +1,176 @@
+/*---- general ----*/
+
+body {
+    background-color: #eee;
+    font-size: 14px;
+}
+
+#left, #right {
+	margin: 30px 0 0 0;
+}
+
+#menu, #canvas, #position, #couleur, #crayon, #ligne, #rectangle, #cercle, #text, #gomme, #save-restore {
+	padding: 10px;
+	background-color: #E6E6E6;
+    border-radius: 10px;
+}
+
+#position, #couleur, #crayon, #ligne, #rectangle, #cercle, #text, #gomme, #save-restore {
+	min-width: 200px;
+}
+
+#canvas, #couleur, #crayon, #ligne, #rectangle, #cercle, #text, #gomme, #save-restore {
+	margin: 30px 0 0 0;
+}
+
+/*---- menu ----*/
+
+#menu {
+	min-width: 512px;
+}
+
+.list-item {
+	width: 90px;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+#list-item-crayon {
+	background-color: #3276b1;
+}
+
+#ztt {
+	margin: 10px 0 0 0;
+	width: 100%;
+	padding: 6px 12px;
+	font-size: 14px;
+	background-color: #cccccc;
+	border-radius: 4px;
+}
+
+.input-ztt {
+	width: 60px;
+}
+
+#image {
+	height: 34px;
+}
+
+#image-input {
+	width: 338px;
+	margin: 5px 0 0 0;
+	cursor: pointer;
+}
+
+/*---- canvas ----*/
+
+#canvas {
+	height: 630px;
+	min-width: 512px;
+	overflow: auto;
+}
+
+#calque-canvas {
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    cursor: crosshair;
+}
+#paint-canvas {
+    background-color: #ffffff;
+    background-image:url('../img/alpha.png');
+    position: absolute;
+}
+
+#paint-zone {
+	position: relative;
+}
+
+/*---- position ----*/
+
+#positionX {
+	margin: 0 5px 0 1px;
+}
+
+.input-position {
+	width: 60px;	
+}
+
+/*---- couleur ----*/
+
+.input-paint-couleur {
+	margin: 0 0 10px 0;
+	width: 86px;
+	background-color: #000000;
+	color: rgba(150, 150, 150, 1);
+}
+
+.input-paint-opacity {
+	margin: 0 0 10px 0;
+	width: 60px;
+}
+
+.couleur-box {
+	margin: 0 5px 0 0;
+	height: 20px;
+	width: 20px;
+	border-radius: 4px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.noir {
+	background-color: #000000;
+}
+
+.blanc {
+	background-color: #ffffff;
+}
+
+.rouge {
+	background-color: #ff0000;
+}
+
+.magenta {
+	background-color: #ff00ff;
+}
+
+.vert {
+	background-color: #00ff00;
+}
+
+.bleu {
+	background-color: #0000ff;
+}
+
+.cyan {
+	background-color: #00ffff;
+}
+
+.jaune {
+	background-color: #ffff00;
+}
+
+/*---- crayon ligne rectangle cercle----*/
+
+.input-crayon-taille, .input-ligne-taille, .input-rectangle-taille, .input-cercle-taille, .input-text-taille, .input-gomme-taille {
+	margin: 0 0 10px 0;
+	width: 60px;
+}
+
+.input-crayon-forme, .input-ligne-forme, .input-rectangle-remplissage, .input-cercle-remplissage, .input-text-remplissage, .input-gomme-forme {
+	width: 95px;	
+}
+
+.input-cercle-remplissage, .input-text-remplissage, .input-text-text, .input-text-police {
+	margin: 0 0 10px 0;
+}
+
+.input-cercle-mode, .input-text-style {
+	width: 105px;
+}
+
+.input-text-police {
+	width: 175px;
+}

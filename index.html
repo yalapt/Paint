@@ -1,0 +1,183 @@
+<!doctype html>
+
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<title>My Paint</title>
+		<meta name="description" content="My Paint">
+		<meta name="author" content="yalap_t">
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+	<div class="container">
+
+		<div id="left" class="col-md-9">
+			<div id="menu">
+				<h3>Menu</h3>
+				<div id="list-menu">
+					<span id="list-item-crayon" class="list-item bt btn-sm btn-primary" onclick="setCrayon();">Crayon</span>
+					<span id="list-item-ligne" class="list-item bt btn-sm btn-primary" onclick="setLigne();">Ligne</span>
+					<span id="list-item-rectangle" class="list-item bt btn-sm btn-primary" onclick="setRectangle();">Rectangle</span>
+					<span id="list-item-cercle" class="list-item bt btn-sm btn-primary" onclick="setCercle();">Cercle</span>
+					<span id="list-item-text" class="list-item bt btn-sm btn-primary" onclick="setText();">Text</span>
+					<span id="list-item-gomme" class="list-item bt btn-sm btn-primary" onclick="setGomme();">Gomme</span>
+					<span id="list-item-reset" class="list-item bt btn-sm btn-danger" onclick="reset();">Reset</span>
+					<div id="ztt">
+						<span>Taille de la zone de travail : </span><input id="zttx" class="form-control input-ztt" type="text" value="500" maxlength="4" onchange="canvasSize();" onkeyup="canvasSize();"><span> x </span><input id="ztty" class="form-control input-ztt" type="text" value="500" maxlength="4" onchange="canvasSize();" onkeyup="canvasSize();"><span> Px</span>
+						<div id="image">
+							<input id="image-input" class="bt btn-sm btn-primary" type="file" title="Ajouter une image" onchange="setImage(event);">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="canvas">
+				<h3>Zone de dessin</h3>
+				<div id="paint-zone">
+					<canvas id="paint-canvas" width="500" height="500">
+					</canvas>
+					<canvas id="calque-canvas" width="500" height="500" onmousemove="getPosition(event); setAction(event);" onmouseout="mouseOut();" onclick="setAction(event);" onmousedown="setAction(event);" onmouseup="setAction(event);"> 
+						Impossible d'afficher la zone de dessin.
+					</canvas>
+				</div>
+			</div>
+		</div>
+
+		<div id="right" class="col-md-3">
+			<div id="position">
+				<h3>Coordonnées</h3>
+				<div id="coordonnee">
+					<span>X : </span><input id="positionX" class="form-control input-position" type="text" maxlength="4">
+					<span>Y : </span><input id="positionY" class="form-control input-position" type="text" maxlength="4">
+				</div>
+			</div>
+			<div id="couleur">
+				<h3>Couleur</h3>
+				<div id="couleur-actuelle">
+					<span>Couleur : </span><input id="paint-couleur" class="form-control input-paint-couleur" type="text" value="#000000" onchange="setColor('input');" onkeyup="setColor('input');" maxlength="7">
+					<br>
+					<span>Opacité : </span><input id="paint-opacity" class="form-control input-paint-opacity" type="text" value="100" maxlength="3" onchange="setColor('input');" onkeyup="setColor('input');"><span> %</span>
+				</div>
+				<div id="couleur-autre">
+					<span class="couleur-box noir" onclick="setColor('#000000')"></span>
+					<span class="couleur-box blanc" onclick="setColor('#FFFFFF')"></span>
+					<span class="couleur-box rouge" onclick="setColor('#FF0000')"></span>
+					<span class="couleur-box magenta" onclick="setColor('#FF00FF')"></span>
+					<span class="couleur-box vert" onclick="setColor('#00FF00')"></span>
+					<span class="couleur-box bleu" onclick="setColor('#0000FF')"></span>
+					<span class="couleur-box cyan" onclick="setColor('#00FFFF')"></span>
+					<span class="couleur-box jaune" onclick="setColor('#FFFF00')"></span>
+				</div>
+			</div>
+			<div id="crayon" style="display: block;">
+				<h3>Crayon</h3>
+				<div id="outils-crayon">
+					<span>Taille : </span><input id="crayon-taille" class="form-control input-crayon-taille" type="text" value="15" maxlength="4">
+					<br>
+					<span>Forme : </span>
+					<select id="crayon-forme" class="form-control input-crayon-forme">
+						<option value="rond">Rond</option>
+						<option value="carre">Carré</option>
+					</select>
+				</div>
+			</div>
+			<div id="ligne" style="display: none;">
+				<h3>Ligne</h3>
+				<div id="outils-ligne">
+					<span>Taille : </span><input id="ligne-taille" class="form-control input-ligne-taille" type="text" value="15" maxlength="4">
+					<br>
+					<span>Forme : </span>
+					<select id="ligne-forme" class="form-control input-ligne-forme">
+						<option value="rond">Rond</option>
+						<option value="carre">Carré</option>
+					</select>
+				</div>
+			</div>
+			<div id="rectangle" style="display: none;">
+				<h3>Rectangle</h3>
+				<div id="outils-rectangle">
+					<span>Taille : </span><input id="rectangle-taille" class="form-control input-rectangle-taille" type="text" value="15" maxlength="4">
+					<br>
+					<span>Remplissage : </span>
+					<select id="rectangle-remplissage" class="form-control input-rectangle-remplissage">
+						<option value="avec">Avec</option>
+						<option value="sans">Sans</option>
+					</select>
+				</div>
+			</div>
+			<div id="cercle" style="display: none;">
+				<h3>Cercle</h3>
+				<div id="outils-cercle">
+					<span>Taille : </span><input id="cercle-taille" class="form-control input-cercle-taille" type="text" value="15" maxlength="4">
+					<br>
+					<span>Remplissage : </span>
+					<select id="cercle-remplissage" class="form-control input-cercle-remplissage">
+						<option value="avec">Avec</option>
+						<option value="sans">Sans</option>
+					</select>
+					<br>
+					<span>Mode : </span>
+					<select id="cercle-mode" class="form-control input-cercle-mode">
+						<option value="normal">Normal</option>
+						<option value="rayon">Rayon</option>
+					</select>
+				</div>
+			</div>
+			<div id="text" style="display: none;">
+				<h3>Text</h3>
+				<div id="outils-text">
+					<span>Text : </span><input id="text-text" class="form-control input-text-text" type="text" value="Text" maxlength="255">
+					<span>Taille : </span><input id="text-taille" class="form-control input-text-taille" type="text" value="15" maxlength="4">
+					<br>
+					<span>Remplissage : </span>
+					<select id="text-remplissage" class="form-control input-text-remplissage">
+						<option value="avec">Avec</option>
+						<option value="sans">Sans</option>
+					</select>
+					<br>
+					<span>Police : </span>
+					<select id="text-police" class="form-control input-text-police">
+						<option value="Times New Roman">Times New Roman</option>
+						<option value="Georgia">Georgia</option>
+						<option value="Arial">Arial</option>
+						<option value="Arial Black">Arial Black</option>
+						<option value="Verdana">Verdana</option>
+						<option value="Calibri">Calibri</option>
+						<option value="Helvetica">Helvetica</option>
+						<option value="Comic Sans MS">Comic Sans MS</option>
+						<option value="Courier New">Courier New</option>
+					</select>
+					<br>
+					<span>Style : </span>
+					<select id="text-style" class="form-control input-text-style">
+						<option value="normal">Normal</option>
+						<option value="bold">Gras</option>
+						<option value="italic">Italic</option>
+					</select>
+				</div>
+			</div>
+			<div id="gomme" style="display: none;">
+				<h3>Gomme</h3>
+				<div id="outils-gomme">
+					<span>Taille : </span><input id="gomme-taille" class="form-control input-gomme-taille" type="text" value="15" maxlength="4">
+					<br>
+					<span>Forme : </span>
+					<select id="gomme-forme" class="form-control input-gomme-forme">
+						<option value="rond">Rond</option>
+						<option value="carre">Carré</option>
+					</select>
+				</div>
+			</div>
+			<div id="save-restore">
+				<button class="btn btn-warning btn-block" onclick="restoreSaveAuto();">Retour en arrière</button>
+				<button class="btn btn-success btn-block" onclick="save();">Sauvegarder</button>
+				<button class="btn btn-info btn-block" onclick="restore();">Restorer la sauvegarde</button>
+				<button class="btn btn-primary btn-block" onclick="show();">Afficher</button>
+			</div>
+		</div>
+
+	</div>
+	<script src="js/jquery.js"></script>
+	<script src="js/script.js"></script>
+	</body>
+</html>
